@@ -1,8 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
+import ProductItem from '../../components/ProductItem'
+
 import { fetcher, queryKeys } from '../../queryClient'
+import { TProduct } from '../../types'
+
+import style from './Products.module.scss'
 
 const ProductList = () => {
-  const { data, status } = useQuery([queryKeys.PRODUCTS], () => fetcher({
+  const { data, status } = useQuery<TProduct[]>([queryKeys.PRODUCTS], () => fetcher({
     method: 'GET',
     path: '/products'
   }))
@@ -25,12 +30,9 @@ const ProductList = () => {
 
   return (
     <div>
-      <ul>
+      <ul className={style.products}>
         {data.map((product) => (
-          // <ProductItem key={product.id} {...product} />
-          <li key={product.id}>
-            {product.title}
-          </li>
+          <ProductItem key={product.id} {...product} />
         ))}
       </ul>
     </div>
