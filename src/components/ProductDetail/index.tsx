@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { TProduct } from '../../types'
 
 import style from './ProductDetail.module.scss'
@@ -10,7 +9,8 @@ const ProductDetail = ({
     image,
     price,
     rating,
-    title 
+    title,
+    description
   },
 }: {
   item: TProduct
@@ -22,6 +22,7 @@ const ProductDetail = ({
       <img src={image} alt={title} />
       <span>${price}</span>
       <span>{rating.rate}</span>
+      <span>${description}</span>
     </div>
   )
 }

@@ -1,12 +1,27 @@
-// fetch('https://fakestoreapi.com/products/1')
-//             .then(res=>res.json())
-//             .then(json=>console.log(json))
-
 import { QueryClient } from '@tanstack/react-query'
 
 type TAnyObject = { [key: string]: any }
 
-export const getClient = () => new QueryClient()
+export const getClient = (() => {
+  let client: QueryClient | null = null
+  return () => {
+    if (!client) {
+      client = new QueryClient({
+        defaultOptions: {
+          queries: {
+            cacheTime: 1000 * 60 * 60 * 24,
+            staleTime: 1000 * 60,
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+            refetchOnWindowFocus: false
+          }
+        }
+      })
+    }
+    
+    return client
+  }
+})()
 
 const baseUrl = 'https://fakestoreapi.com'
 
