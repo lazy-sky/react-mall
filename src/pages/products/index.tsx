@@ -30,6 +30,7 @@ const ProductList = () => {
 
   return (
     <div>
+      <h2>상품 목록</h2>
       <ul className={style.products}>
         {data.map((product) => (
           <ProductItem key={product.id} {...product} />
