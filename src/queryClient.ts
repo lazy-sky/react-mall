@@ -22,7 +22,7 @@ export const fetcher = async ({
   params?: TAnyObject
 }) => {
   try {
-    const url = `${baseUrl}${path}`
+    let url = `${baseUrl}${path}`
     const fetchOptions: RequestInit = {
       method,
       headers: {
@@ -30,6 +30,16 @@ export const fetcher = async ({
         'Access-Control-Allow-Origin': baseUrl
       }
     }
+
+    if (params) {
+      const searchParams = new URLSearchParams(params)
+      url += '?' + searchParams.toString()
+    }
+
+    if (body) {
+      fetchOptions.body = JSON.stringify(body)
+    }
+
     const res = await fetch(url, fetchOptions)
     const json = await res.json()
     return json
